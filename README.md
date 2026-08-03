@@ -1,7 +1,7 @@
-# 🚀 Dev Workstation Setup & Docker Environment Mission
+# Workstation
 
 ## 1. 프로젝트 개요 (Project Overview)
-본 프로젝트는 Linux, Git, Docker를 사용하기에 앞서 기본적인 명령어를 실행해 보고 환경을 구축 및 검증하는 것을 목표로 합니다.
+본 프로젝트는 Linux, Git, Docker를 사용하기에 앞서 기본적인 명령어를 실행해 보고 환경을 구축 및 검증하는 것을 목표로 함.
 
 ---
 
