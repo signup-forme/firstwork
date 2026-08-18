@@ -15,9 +15,8 @@
 
 ## 3. 수행 항목 체크리스트 (Checklist)
 - [x] 터미널 기본 조작(파일/폴더 생성, 이동, 복사, 삭제 등)
-- [x] 파일 권한 변경
-- [x] Docker 설치 및 기본 점검 (`docker --version`, `docker info`)
-- [x] 컨테이너 실행 실습 (`hello-world`, `ubuntu` 진입 및 종료 관찰)
+- [x] 파일 권한 변경(chmod)
+- [x] Docker
 - [x] Dockerfile 기반 Nginx 커스텀 웹 서버 이미지 빌드 및 포트 매핑 실행
 - [x] 바인드 마운트(Bind Mount)를 통한 실시간 변경 사항 반영 검증
 - [x] Docker 볼륨(Volume)을 통한 데이터 영속성(Persistence) 검증
@@ -44,7 +43,7 @@
 
 ### 2. 파일 권한 변경
 
-
+<img width="3056" height="3296" alt="image" src="https://github.com/user-attachments/assets/ff032021-c0cd-4384-b960-acee55dc92c0" />
 
 * 1번째 글자 : 파일 유형(-는 파일, d는 디렉토리)
 * 2번째 글자 이후 : 3글자씩 끊어서 계산
@@ -55,26 +54,12 @@
   * r : 읽기(Read) → 4
   * w : 쓰기(Write) → 2
   * x : 실행하기(eXecute) → 1
+* chmod [숫자] [파일 이름]
+* chmod -R [숫자] [폴더 이름] : Recursive에서 따왔으며, 폴더 내 파일이나 하위 폴더 전체의 권한을 변경
 
-# ==========================================
-# 3. Docker 설치 점검 및 기본 컨테이너 실행
-# ==========================================
-$ docker --version
-Docker version 29.7.1, build 2ae97ce
+### 3. Docker
 
-$ docker info
-Client: Docker Engine - Community
- Context: default
-
-# hello-world 실행
-$ docker run --rm hello-world
-Hello from Docker!
-
-# ubuntu 컨테이너 진입 및 테스트
-$ docker run -it --name ubuntu-test ubuntu bash
-user@DESKTOP:/# ls -la
-user@DESKTOP:/# exit
-
+<img width="3640" height="2936" alt="image" src="https://github.com/user-attachments/assets/a92c431f-6743-4ec8-a4c4-33000eb604a5" />
 
 # ==========================================
 # 4. Dockerfile 이미지 빌드 및 포트 매핑
