@@ -17,7 +17,7 @@
 - [x] 터미널 기본 조작(파일/폴더 생성, 이동, 복사, 삭제 등)
 - [x] 파일 권한 변경(chmod)
 - [x] Docker
-- [x] Dockerfile 기반 Nginx 커스텀 웹 서버 이미지 빌드 및 포트 매핑 실행
+- [x] Docker 컨테이너
 - [x] 바인드 마운트(Bind Mount)를 통한 실시간 변경 사항 반영 검증
 - [x] Docker 볼륨(Volume)을 통한 데이터 영속성(Persistence) 검증
 - [x] Git 사용자 정보 설정 및 GitHub 원격 저장소 연동/푸시
@@ -31,7 +31,7 @@
 <img width="3492" height="4288" alt="image" src="https://github.com/user-attachments/assets/ce918443-c8e6-4a67-bca8-fa5400b57077" />
 
 * 위치 : pwd → 현재 경로 출력
-* 조회 : ls -la → 숨김 파일 포함 전체 파일 목록 조
+* 조회 : ls -la → 숨김 파일 포함 전체 파일 목록 조회(LiSt, -l : 상세 정보 출력, -a : All을 의미하며 숨김 파일을 포함한 모든 항목 출력)
 * 생성 : mkdir [폴더 이름] → 디렉토리 생성(MaKe DIRectory)
 * 생성 : touch [파일 이름] → 빈 파일 생성
 * 생성/작성 : echo "문자열" > [파일 이름] → echo로 출력한 문자열을 >(리다이렉션 - 다른 파일로 이동/호출) 인자로 파일에 저장
@@ -39,7 +39,7 @@
 * 변경/이동 : mv [대상] [변경 이름/목적지] → 대상 파일이나 폴더를 이름을 변경하거나 목적지로 이동(맨 뒤에 / 필요)
 * 복사 : cp [원본] [복사본] → 원본을 복사본으로 복사(폴더는 cp -r [원본] [복사본])
 * 삭제 : rm [파일 이름] → 파일 삭제
-* 삭제 : rm -rf [폴더 이름] → 폴더 및 하위 파일 전체 삭제
+* 삭제 : rm -rf [폴더 이름] → 폴더 및 하위 파일 전체 삭제(-r : 하위 디렉토리 재귀 삭제, -f : 강제 삭제)
 
 ### 2. 파일 권한 변경
 
@@ -61,18 +61,26 @@
 
 <img width="3640" height="2936" alt="image" src="https://github.com/user-attachments/assets/a92c431f-6743-4ec8-a4c4-33000eb604a5" />
 
-# ==========================================
-# 4. Dockerfile 이미지 빌드 및 포트 매핑
-# ==========================================
-# Dockerfile 작성 후 이미지 빌드
-$ docker build -t my-web-server:1.0 .
+### 4. Docker 컨테이너
 
-# 포트 매핑 실행 (호스트 8080 -> 컨테이너 80)
-$ docker run -d -p 8080:80 --name web-container my-web-server:1.0
+<img width="3680" height="4804" alt="image" src="https://github.com/user-attachments/assets/65e47254-ffe3-4054-886f-472a005fea5c" />
 
-# 로컬 접속 검증
-$ curl http://localhost:8080
+* docker run -d --name [이름] nginx : Nginx 웹 서버 컨테이너를 background(-d)에서 [이름]이라는 이름(--name)으로 실행
+* docker ps -a : 현재 존재하는 전체 컨테이너(실행 중 + 정지 상태) 목록 확인
+* docker container prune : 정지 상태의 컨테이너 전체 삭제
+* docker stop [이름] : 실행 중인 [이름] 컨테이너 정지
+* docker rm [이름] : 정지 상태인 [이름] 컨테이너 삭제
 
+#### 컨테이너의 삭제와 데이터 보존 ####
+컨테이너는 데이터를 가상 파일 시스템에 생성하는데, 이 데이터는 컨테이너와 운명을 같이 함. 즉, 컨테이너가 삭제되면 그 내부에 저장되어 있던 파일이나 데이터도 함께 파기.
+해결 방법 : Docker에서 제공하는 영구 저장 공간인 Volume에 파일과 데이터를 보관.
+
+<img width="3680" height="1652" alt="image" src="https://github.com/user-attachments/assets/0283773e-c4ce-4a7d-84a4-0cf83af0cee8" />
+
+* Docker는 이미 생성되어 실행 중인 컨테이너에 볼륨을 연결하는 것은 지원하지 않으므로, 기존 컨테이너를 삭제한 후 볼륨을 생성하여 연결
+* docker volume create [이름] : 볼륨 [이름] 생성
+* docker run -d --name [컨테이너 이름] -p 80:80 -v [볼륨 이름]:[컨테이너 내부 경로] [이미지 종류]
+  * nginx 웹서버를 사용 중일 경우 → docker run -d --name [컨테이너 이름] -p 80:80 -v [볼륨 이름]:/usr/share/nginx/html nginx
 
 # ==========================================
 # 5. 바인드 마운트 및 볼륨 영속성 검증
