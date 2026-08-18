@@ -81,26 +81,14 @@
 * docker volume create [이름] : 볼륨 [이름] 생성
 * docker run -d --name [컨테이너 이름] -p 80:80 -v [볼륨 이름]:[컨테이너 내부 경로] [이미지 종류]
   * nginx 웹서버를 사용 중일 경우 → docker run -d --name [컨테이너 이름] -p 80:80 -v [볼륨 이름]:/usr/share/nginx/html nginx
+  * docker exec [컨테이너 이름] : 실행 중인 컨테이너 내부로 진입
+  * sh : SHell을 의미하며, 사용자의 명령을 받아 시스템에 전달해주는 프로그램
+  * -c : 뒤따라오는 큰따옴표로 묶인 문자열 전체를 하나의 명령어로 보고 실행
+  * cat : Concatenate를 의미하며, 파일 안에 적힌 글자를 화면에 출력
 
-# ==========================================
-# 5. 바인드 마운트 및 볼륨 영속성 검증
-# ==========================================
-# 바인드 마운트 실행 (실시간 파일 반영)
-$docker run -d -p 8081:80 -v$(pwd):/usr/share/nginx/html --name bind-test my-web-server:1.0
+### 5. Docker 이미지
 
-# Docker 볼륨 생성 및 데이터 영속성 검증
-$ docker volume create mydata
-
-# 첫 번째 컨테이너에 연결 후 데이터 작성
-$docker run -d --name vol-test1 -v mydata:/data ubuntu sleep infinity$ docker exec -it vol-test1 bash -c "echo 'Persistent Data Test' > /data/testcase.txt"
-
-# 컨테이너 삭제
-$ docker rm -f vol-test1
-
-# 두 번째 새 컨테이너에 연결하여 데이터 유지 검증
-$docker run -d --name vol-test2 -v mydata:/data ubuntu sleep infinity$ docker exec -it vol-test2 bash -c "cat /data/testcase.txt"
-Persistent Data Test
-
+<img width="3680" height="20732" alt="image" src="https://github.com/user-attachments/assets/f58ccd7f-e97d-4f51-9717-ba402e6b056d" />
 
 # ==========================================
 # 6. 핵심 개념 정리 (Learning Points)
