@@ -75,7 +75,7 @@
 컨테이너는 데이터를 가상 파일 시스템에 생성하는데, 이 데이터는 컨테이너와 운명을 같이 함. 즉, 컨테이너가 삭제되면 그 내부에 저장되어 있던 파일이나 데이터도 함께 파기.
 해결 방법 : Docker에서 제공하는 영구 저장 공간인 Volume에 파일과 데이터를 보관.
 
-<img width="3680" height="1652" alt="image" src="https://github.com/user-attachments/assets/0283773e-c4ce-4a7d-84a4-0cf83af0cee8" />
+<img width="3680" height="4264" alt="image" src="https://github.com/user-attachments/assets/a05e6371-2e50-4093-92f2-cb537578898b" />
 
 * Docker는 이미 생성되어 실행 중인 컨테이너에 볼륨을 연결하는 것은 지원하지 않으므로, 기존 컨테이너를 삭제한 후 볼륨을 생성하여 연결
 * docker volume create [이름] : 볼륨 [이름] 생성
