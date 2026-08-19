@@ -1,5 +1,2 @@
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf *
-COPY index.html ./index.html
-EXPOSE 80
+COPY test_index.html /usr/share/nginx/html/test_index.html
